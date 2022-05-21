@@ -17,12 +17,12 @@ timvitriNV (tk) {
     })
     return index;
 }
-xoa (tk) {
-    var index = this.timvitriNV(tk);
-    console.log(index);
-    if (index !== -1) {
-    this.danhSach.splice(index,1) 
-    }
+xoa (i) {
+    console.log(i);
+    this.danhSach = this.danhSach.filter((nv,index)=>{
+        return index !== i;
+    })
+    console.log(this.danhSach);
 }
 
 

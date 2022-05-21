@@ -11,7 +11,7 @@ window.onload = function () {
 }
 getData();
 
-function nhapThongTin (capnhat) {
+function nhapThongTin () {
     var nv = new NhanVien({
      tknv :getEle("tknv").value,
      name :getEle("name").value,
@@ -22,11 +22,8 @@ function nhapThongTin (capnhat) {
      chucvu: getEle("chucvu").value,
      giolam:  getEle("gioLam").value,
     })
-    var tk = nv.tknv;
     nv.ktThongTin();
-    console.log(tk);
-    return nv;
-    
+    return nv;   
 }
 
  
@@ -36,7 +33,7 @@ function nhapThongTin (capnhat) {
 function taoBang (ds) {
 getEle("tableDanhSach").innerHTML = ds.map((nv,index) => {
     var {tknv,name,email,pass,ngaylam,loai,tongLuong,luong,chucvu,giolam} = nv;
-
+    
     return (`<tr>
     <td>${tknv}</td>   
     <td>${name}</td>   
@@ -51,14 +48,19 @@ getEle("tableDanhSach").innerHTML = ds.map((nv,index) => {
     sửa
     </button> 
     <button 
+    onclick="xoaNV(${index})"
     class="btn btn-danger mt-1"
-    onclick="xoaNV(${tknv.toString()})"
     >Xoá</button>
     </td>
     </tr>`)
 });
 };
-function 
+function xoaNV (index) {
+    console.log(index);
+    ds.xoa(index);
+    taoBang(ds.danhSach);
+    setData();
+}
 
 function hienthiNV (nv) {
     var {tknv,name,email,pass,ngaylam,luong,chucvu,giolam} = nv ;
@@ -102,7 +104,6 @@ getEle('btnThemNV').onclick = function () {
         nv.err("taikhoan","* trùng tài khoải");
     } else if (nv !== undefined && nv.checked){ 
     ds.themNV(nv);
-    console.log(ds.danhSach);
     setData()
     $('#myModal').modal('hide');
     taoBang(ds.danhSach);
